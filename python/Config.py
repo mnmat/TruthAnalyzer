@@ -7,7 +7,7 @@ import FWCore.ParameterSet.Config as cms
 from argparse import ArgumentParser
 
 parser = ArgumentParser()
-parser.add_argument("inputFile", nargs='?', default="file:/eos/home-f/fnenna/cmsweek0926_truthGraphHackaton/CMSSW_20_1_X_graph/src/38620.0_SingleMuPt1000Extended+Run4D128PU/step3.root", metavar='FILE',
+parser.add_argument("inputFile", nargs='?', default="file:/eos/home-f/fnenna/cmsweek0926_truthGraphHackaton/CMSSW_20_1_X_graph/src/38620.0_SingleMuPt1000Extended+Run4D128PU/step3_noOutOfTime.root", metavar='FILE',
                     help="input file, default=%(default)r")
 parser.add_argument('-n', "--maxevts", type=int, default=-1,
                     help="maximum number of events to process, default=%(default)s")
@@ -68,7 +68,8 @@ process.demo = cms.EDAnalyzer("TruthHitsAnalyzer",
     tracksterTruthToReco=cms.InputTag(args.tracksterAssociator, tracksterKey + "TruthToReco"),
     gemSegments =cms.InputTag(args.segments),
     gemSegmentRecoToTruth=cms.InputTag("allGEMSegmentToTruthBranchAssociators", gemSegmentKey + "RecoToTruth" + args.workingPoint),
-    gemSegmentTruthToReco=cms.InputTag("allGEMSegmentToTruthBranchAssociators", gemSegmentKey + "TruthToReco")
+    gemSegmentTruthToReco=cms.InputTag("allGEMSegmentToTruthBranchAssociators", gemSegmentKey + "TruthToReco"),
+    debugParticles = cms.vuint32(22649, 15211, 85800, 60650)
 )
  
 process.p = cms.Path(process.demo)
